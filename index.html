@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Quiz Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore-compat.js"></script>
+    
+    <!-- JWT Decoder -->
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+    
+    <!-- Firebase Config -->
+    <script src="firebase-config.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="quiz-logo">
+                <i class="fas fa-laptop-code"></i>
+                <h1>Tech Quiz Pro</h1>
+            </div>
+            <div class="welcome-content">
+                <p>Test your knowledge in technology and computing!</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <input type="text" id="player-name" placeholder="Enter your name" required>
+                        <span class="placeholder-text"></span>
+                    </div>
+                    <button id="start-quiz" class="btn primary-btn">
+                        Start Quiz <i class="fas fa-play"></i>
+                    </button>
+                    <button id="view-leaderboard" class="btn secondary-btn">
+                        View Leaderboard <i class="fas fa-trophy"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen">
+            <div class="quiz-header">
+                <div class="player-info">
+                    <div class="player-profile">
+                        <img id="player-avatar" src="default-avatar.png" alt="Player Avatar">
+                        <span id="player-name-display"></span>
+                    </div>
+                    <span class="score">Score: <span id="score">0</span></span>
+                </div>
+                <div class="quiz-progress">
+                    <div class="timer">
+                        <i class="fas fa-clock"></i>
+                        <span id="time-display">00:00</span>
+                    </div>
+                    <div class="question-counter">
+                        Question <span id="current-question">1</span>/10
+                    </div>
+                </div>
+            </div>
+            <div class="quiz-content">
+                <div id="question" class="question"></div>
+                <div class="options" id="options"></div>
+                <button id="next-btn" class="next-btn">
+                    Next Question <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            <div class="progress-bar">
+                <div id="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" class="screen">
+            <h2>Quiz Complete!</h2>
+            <div class="result-content">
+                <div class="result-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-star"></i>
+                        <div class="stat-value" id="final-score-value">0</div>
+                        <div class="stat-label">Points</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-clock"></i>
+                        <div class="stat-value" id="final-time">00:00</div>
+                        <div class="stat-label">Time</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-bullseye"></i>
+                        <div class="stat-value" id="accuracy-value">0%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                </div>
+                <div id="player-stats"></div>
+                <div class="result-buttons">
+                    <button id="play-again" class="btn primary-btn">
+                        Play Again <i class="fas fa-redo"></i>
+                    </button>
+                    <button id="share-result" class="btn secondary-btn">
+                        Share Result <i class="fas fa-share"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard Screen -->
+        <div id="leaderboard-screen" class="screen">
+            <h2>Leaderboard</h2>
+            <div class="leaderboard-filters">
+                <button class="filter-btn active" data-filter="all">All Time</button>
+                <button class="filter-btn" data-filter="weekly">This Week</button>
+            </div>
+            <div class="leaderboard-content">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Score</th>
+                            <th>Accuracy</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Leaderboard entries will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+            <button id="back-to-menu" class="btn secondary-btn">
+                Back to Menu <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore.js"></script>
+    <script src="config.js"></script>
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore-compat.js"></script>
+<script src="questions.js"></script>
+<!-- Your Firebase configuration -->
+<script src="firebase-config.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
