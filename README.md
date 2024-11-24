@@ -12,4 +12,4 @@ An interactive technology quiz web application built with HTML, CSS, and JavaScr
 
 ## Play Now
 
-Visit [GitHub Pages URL will be here] to play the quiz!
+Visit [https://shakpro.github.io/TechQuizPro](https://shakpro.github.io/TechQuizPro) to play the quiz!
